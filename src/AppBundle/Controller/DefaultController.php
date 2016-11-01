@@ -22,6 +22,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $feeds = $this->feedMe();
+        $this->insertFeedsIntoBBDD($feeds);
 
         return $this->render('default/index.html.twig', array(
           'feeds' => $feeds
@@ -51,5 +52,14 @@ class DefaultController extends Controller
             );
 
         return $feeds;
+    }
+    private function insertFeedsIntoBBDD($feeds)
+    {
+        $em = $this->getDoctrine()->getManager();
+        foreach ($feeds as $feed)
+        {
+            $em->persist($feed);
+        }
+        $em->flush($feed);
     }
 }

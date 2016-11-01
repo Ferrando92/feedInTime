@@ -20,6 +20,7 @@ class FeedXML extends Feed
       $this->setSourceByXML($item);
       $this->setPublisherByXML();
       $this->setDateByXML($item);
+      $this->setActivaEnPortadaXML(true);
     }
   public function setItemXML($xml)
   {
@@ -71,5 +72,12 @@ class FeedXML extends Feed
 
       return $this;
   }
+ // Parche feo momentaneo
+  public function setActivaEnPortadaXML($activaEnPortada)
+    {
+        $this->activa_en_portada = $activaEnPortada;
+
+        return $this;
+    }
 
 }

@@ -6,7 +6,12 @@
  * Time: 12:46
  */
 namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="feed")
+ */
 class ElPeriodico extends FeedXML
 {
   public function setImageByXML($item)

@@ -28,7 +28,7 @@ class DefaultController extends Controller
         ));
     }
 
-    public function getFeedsRss()
+    private function getFeedsRss()
     {
         return $feedsRSS = array(
             'ElPaisRSS' => 'http://ep00.epimg.net/rss/elpais/portada.xml',
@@ -39,7 +39,7 @@ class DefaultController extends Controller
         );
     }
 
-    public function feedMe()
+    private function feedMe()
     {
         $feedsRSS = $this->getFeedsRss();
         $feeds = array(

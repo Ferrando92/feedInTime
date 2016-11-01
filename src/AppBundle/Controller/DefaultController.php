@@ -22,7 +22,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $feeds = $this->feedMe();
-        $this->insertFeedsIntoBBDD($feeds);
+        //$this->insertFeedsIntoBBDD($feeds);
 
         return $this->render('default/index.html.twig', array(
           'feeds' => $feeds

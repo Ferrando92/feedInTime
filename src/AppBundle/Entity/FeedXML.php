@@ -18,7 +18,7 @@ class FeedXML extends Feed
       $this->setBodyByXML($item);
       $this->setImageByXML($item);
       $this->setSourceByXML($item);
-      $this->setPublisherByXML(null);
+      $this->setPublisherByXML();
       $this->setDateByXML($item);
     }
   public function setItemXML($xml)

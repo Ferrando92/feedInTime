@@ -8,7 +8,7 @@
             {% for feed in feeds %}
                 <h2>{{ feed.publisher }}</h2>
                 <p>{{ feed.title }}</p>
-                <p>{{ feed.date|date('Y-m-d') }}</p>
+                <p>{{ feed.date|date('D-M-Y') }}</p>
                 <p>{{ feed.body }}</p>
                 <img style="max-width:400px;max-height:400px;" src="{{ feed.image }}" >
                 <p><a href="{{ feed.source }}">Ir al Link de la noticia</a></p>

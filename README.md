@@ -67,3 +67,16 @@ Enjoy!
 [11]: https://symfony.com/doc/2.8/cookbook/logging/monolog.html
 [13]: https://symfony.com/doc/2.8/bundles/SensioGeneratorBundle/index.html
 # feedInTime
+
+
+CREATION OF DATABASE:
+  CREATE TABLE Feed (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(250) NOT NULL,
+    body VARCHAR(250) NOT NULL,
+    image VARCHAR(250),
+    source VARCHAR(250),
+    publisher VARCHAR(250),
+    date VARCHAR(250),
+    activa_en_portada BOOLEAN
+  );

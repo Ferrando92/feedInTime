@@ -17,9 +17,9 @@ class LaRazon extends FeedXML
         return $this;
     }
 
-    public function setSourceByXML()
+    public function setPublisherByXML($publisher = 'La Razon')
     {
-      $this->source = 'La Razon';
+      $this->publisher =  $publisher;
 
       return $this;
     }

@@ -8,17 +8,17 @@ use Doctrine\ORM\Mapping as ORM;
 class FeedXML extends Feed
 {
   public function __construct($xml) {
-      $this->createFeedByXMLByXML($xml);
+      $this->createFeedByXML($xml);
    }
 
-  public function createFeedByXMLByXML($xml)
+  public function createFeedByXML($xml)
     {
       $item = $this->setItemXML($xml);
       $this->setTitleByXML($item);
       $this->setBodyByXML($item);
       $this->setImageByXML($item);
-      $this->setSourceByXML();
-      $this->setPublisherByXML($item);
+      $this->setSourceByXML($item);
+      $this->setPublisherByXML(null);
       $this->setDateByXML($item);
     }
   public function setItemXML($xml)
@@ -50,14 +50,14 @@ class FeedXML extends Feed
   }
 
 
-  public function setSourceByXML()
+  public function setSourceByXML($item)
   {
       $this->source = (string)$item->link;
 
       return $this;
   }
 
-  public function setPublisherByXML($publisher)
+  public function setPublisherByXML($publisher = 'Uknown')
   {
       $this->publisher = $publisher;
 

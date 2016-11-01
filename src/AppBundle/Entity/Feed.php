@@ -49,15 +49,11 @@ class Feed
      */
     protected $activa_en_portada;
 
-    public function createFeedByXML($xml)
-    {
-
-    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -80,7 +76,7 @@ class Feed
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -103,7 +99,7 @@ class Feed
     /**
      * Get body
      *
-     * @return string 
+     * @return string
      */
     public function getBody()
     {
@@ -126,7 +122,7 @@ class Feed
     /**
      * Get image
      *
-     * @return string 
+     * @return string
      */
     public function getImage()
     {
@@ -149,7 +145,7 @@ class Feed
     /**
      * Get source
      *
-     * @return string 
+     * @return string
      */
     public function getSource()
     {
@@ -172,7 +168,7 @@ class Feed
     /**
      * Get publisher
      *
-     * @return string 
+     * @return string
      */
     public function getPublisher()
     {
@@ -195,7 +191,7 @@ class Feed
     /**
      * Get date
      *
-     * @return string 
+     * @return string
      */
     public function getDate()
     {
@@ -218,7 +214,7 @@ class Feed
     /**
      * Get activa_en_portada
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActivaEnPortada()
     {

@@ -5,7 +5,6 @@
  * Date: 01/11/2016
  * Time: 12:44
  */
-
 namespace AppBundle\Entity;
 
 
@@ -13,15 +12,16 @@ class ElMundo extends FeedXML
 {
   public function setImageByXML($item)
   {
-      $this->image = (string)$item->children('media',true)->content->attributes();
+    $this->image = (string)$item->children('media',true)->content->attributes();
 
-      return $this;
+    return $this;
   }
-  public function setSourceByXML()
-  {
-      $this->source = 'El Mundo';
 
-      return $this;
+  public function setPublisherByXML($publisher = 'El Mundo')
+  {
+    $this->publisher =  $publisher;
+
+    return $this;
   }
 
 }

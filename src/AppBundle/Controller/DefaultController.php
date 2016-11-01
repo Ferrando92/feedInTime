@@ -21,8 +21,13 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return new Response(var_dump($this->feedMe()));
+        $feeds = $this->feedMe();
+
+        return $this->render('default/index.html.twig', array(
+          'feeds' => $feeds
+        ));
     }
+
     public function getFeedsRss()
     {
         return $feedsRSS = array(
@@ -33,13 +38,13 @@ class DefaultController extends Controller
             'ElPeriodicoRSS' => 'http://www.elperiodico.com/es/rss/rss_portada.xml'
         );
     }
+
     public function feedMe()
     {
-
         $feedsRSS = $this->getFeedsRss();
         $feeds = array(
                 new ElPais(simplexml_load_file($feedsRSS['ElPaisRSS'])),
-                new LaRazon(simplexml_load_file($feedsRSS['LaRazonRSS'])),
+                //new LaRazon(simplexml_load_file($feedsRSS['LaRazonRSS'])),
                 new ElConfidencial(simplexml_load_file($feedsRSS['ElConfidencialRSS'])),
                 new ElMundo(simplexml_load_file($feedsRSS['ElMundoRSS'])),
                 new ElPeriodico(simplexml_load_file($feedsRSS['ElPeriodicoRSS']))

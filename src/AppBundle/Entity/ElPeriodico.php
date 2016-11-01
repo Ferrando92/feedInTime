@@ -9,16 +9,17 @@ namespace AppBundle\Entity;
 
 class ElPeriodico extends FeedXML
 {
-    public function setImageByXML($item)
+  public function setImageByXML($item)
   {
-      $this->image = (string)str_replace('"/>','',substr(substr($item->description,strpos($item->description,'src="')),5));
+    $this->image = (string)str_replace('"/>','',substr(substr($item->description,strpos($item->description,'src="')),5));
+
+    return $this;
+  }
+
+  public function setPublisherByXML($publisher = 'El Periodico')
+    {
+      $this->publisher =  $publisher;
 
       return $this;
-  }
-  public function setSourceByXML()
-  {
-      $this->source = 'El Periodico';
-
-      return $this;
-  }
+    }
 }

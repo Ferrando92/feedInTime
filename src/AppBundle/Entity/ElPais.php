@@ -25,10 +25,10 @@ class ElPais extends FeedXML
       return $this;
   }
 
-  public function setSourceByXML()
-  {
-      $this->source = 'El Pais';
+  public function setPublisherByXML($publisher =  'El Pais')
+    {
+      $this->publisher =  $publisher;
 
       return $this;
-  }
+    }
 }

@@ -22,12 +22,13 @@ class ElConfidencial extends FeedXML
 
       return $this;
   }
-  public function setSourceByXML()
-  {
-      $this->source = 'El Confidencial';
+
+  public function setPublisherByXML($publisher = 'El Confidencial')
+    {
+      $this->publisher = $publisher;
 
       return $this;
-  }
+    }
 
   public function setDateByXML($item)
   {

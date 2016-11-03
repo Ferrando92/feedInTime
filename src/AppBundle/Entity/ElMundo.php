@@ -14,14 +14,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ElMundo extends FeedXML
 {
-  public function setImageByXML($item)
+  protected function setImageByXML($item)
   {
     $this->image = (string)$item->children('media',true)->content->attributes();
 
     return $this;
   }
 
-  public function setPublisherByXML($publisher = 'El Mundo')
+  protected function setPublisherByXML($publisher = 'El Mundo')
   {
     $this->publisher =  $publisher;
 

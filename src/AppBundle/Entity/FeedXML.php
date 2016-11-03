@@ -12,23 +12,24 @@ class FeedXML extends Feed
       $this->createFeedByXML($xml);
    }
 
-  public function createFeedByXML($xml)
-    {
-      $item = $this->setItemXML($xml);
-      $this->setTitleByXML($item);
-      $this->setBodyByXML($item);
-      $this->setImageByXML($item);
-      $this->setSourceByXML($item);
-      $this->setPublisherByXML();
-      $this->setDateByXML($item);
-      $this->setActivaEnPortadaXML(true);
-    }
-  public function setItemXML($xml)
+  protected function createFeedByXML($xml)
+  {
+    $item = $this->setItemXML($xml);
+    $this->setTitleByXML($item);
+    $this->setBodyByXML($item);
+    $this->setImageByXML($item);
+    $this->setSourceByXML($item);
+    $this->setPublisherByXML();
+    $this->setDateByXML($item);
+    $this->setActivaEnPortadaXML(true);
+  }
+
+  protected function setItemXML($xml)
   {
     return  $xml->channel->item[0];
   }
 
-  public function setTitleByXML($item)
+  protected function setTitleByXML($item)
   {
       $this->title = (string)$item->title;
 
@@ -36,7 +37,7 @@ class FeedXML extends Feed
   }
 
 
-  public function setBodyByXML($item)
+  protected function setBodyByXML($item)
   {
       $this->body = (string)strip_tags($item->description);
 
@@ -44,7 +45,7 @@ class FeedXML extends Feed
   }
 
 
-  public function setImageByXML($item)
+  protected function setImageByXML($item)
   {
       $this->image = (string)$item->children('media',true)->content->attributes()->url;
 
@@ -52,14 +53,14 @@ class FeedXML extends Feed
   }
 
 
-  public function setSourceByXML($item)
+  protected function setSourceByXML($item)
   {
       $this->source = (string)$item->link;
 
       return $this;
   }
 
-  public function setPublisherByXML($publisher = 'Uknown')
+  protected function setPublisherByXML($publisher = 'Uknown')
   {
       $this->publisher = $publisher;
 
@@ -67,14 +68,14 @@ class FeedXML extends Feed
   }
 
 
-  public function setDateByXML($item)
+  protected function setDateByXML($item)
   {
       $this->date = date('Y-m-d', strtotime((string)$item->pubDate));
 
       return $this;
   }
  // Parche feo momentaneo
-  public function setActivaEnPortadaXML($activaEnPortada)
+  protected function setActivaEnPortadaXML($activaEnPortada)
     {
         $this->activa_en_portada = $activaEnPortada;
 

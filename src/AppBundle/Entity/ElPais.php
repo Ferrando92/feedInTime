@@ -15,21 +15,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ElPais extends FeedXML
 {
-  public function setBodyByXML($item)
+  protected function setBodyByXML($item)
   {
-      $this->body = (string)$item->description;
+    $this->body = (string)$item->description;
 
-      return $this;
+    return $this;
   }
 
-  public function setImageByXML($item)
+  protected function setImageByXML($item)
   {
-      $this->image = (string)$item->enclosure['url'];
+    $this->image = (string)$item->enclosure['url'];
 
-      return $this;
+    return $this;
   }
 
-  public function setPublisherByXML($publisher =  'El Pais')
+  protected function setPublisherByXML($publisher =  'El Pais')
     {
       $this->publisher =  $publisher;
 

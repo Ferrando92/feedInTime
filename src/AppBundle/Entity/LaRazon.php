@@ -16,14 +16,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 class LaRazon extends FeedXML
 {
-  public function setBodyByXML($item)
+  protected function setBodyByXML($item)
     {
         $this->body = (string)$item->subtitle;
 
         return $this;
     }
 
-    public function setPublisherByXML($publisher = 'La Razon')
+    protected function setPublisherByXML($publisher = 'La Razon')
     {
       $this->publisher =  $publisher;
 

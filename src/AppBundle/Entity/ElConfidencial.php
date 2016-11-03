@@ -15,31 +15,29 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ElConfidencial extends FeedXML
 {
-
-  public function setItemXML($xml)
+  protected function setItemXML($xml)
   {
     return $xml->entry[0];
   }
 
-  public function setBodyByXML($item)
+  protected function setBodyByXML($item)
   {
       $this->body = (string)$item->summary;
 
       return $this;
   }
 
-  public function setPublisherByXML($publisher = 'El Confidencial')
+  protected function setPublisherByXML($publisher = 'El Confidencial')
     {
       $this->publisher = $publisher;
 
       return $this;
     }
 
-  public function setDateByXML($item)
+  protected function setDateByXML($item)
   {
       $this->date = date('Y-m-d', strtotime((string)$item->published));
 
       return $this;
   }
-
 }

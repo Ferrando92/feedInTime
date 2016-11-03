@@ -45,9 +45,9 @@ class DefaultController extends Controller
         $feedsRSS = $this->getFeedsRss();
         $feeds = array(
                 new ElPais(simplexml_load_file($feedsRSS['ElPaisRSS'])),
-                new LaRazon(simplexml_load_file($feedsRSS['LaRazonRSS'])),
+                //new LaRazon(simplexml_load_file($feedsRSS['LaRazonRSS'])),
                 new ElConfidencial(simplexml_load_file($feedsRSS['ElConfidencialRSS'])),
-                new ElMundo(simplexml_load_file($feedsRSS['ElMundoRSS'])),
+                //new ElMundo(simplexml_load_file($feedsRSS['ElMundoRSS'])),
                 new ElPeriodico(simplexml_load_file($feedsRSS['ElPeriodicoRSS']))
             );
 

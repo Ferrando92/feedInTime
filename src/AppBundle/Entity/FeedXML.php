@@ -21,7 +21,7 @@ class FeedXML extends Feed
     $this->setSourceByXML($item);
     $this->setPublisherByXML();
     $this->setDateByXML($item);
-    $this->setActivaEnPortadaXML(true);
+    $this->setactiveAtFrontpageXML(true);
   }
 
   protected function setItemXML($xml)
@@ -75,11 +75,16 @@ class FeedXML extends Feed
       return $this;
   }
  // Parche feo momentaneo
-  protected function setActivaEnPortadaXML($activaEnPortada)
-    {
-        $this->activa_en_portada = $activaEnPortada;
+  protected function setactiveAtFrontpageXML($activeAtFrontpage)
+  {
+      $this->active_at_frontpage = $activeAtFrontpage;
 
-        return $this;
-    }
+      return $this;
+  }
+
+  public function __toString()
+  {
+      return $this->getSource();
+  }
 
 }

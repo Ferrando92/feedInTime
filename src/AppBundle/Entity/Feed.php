@@ -3,7 +3,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FeedRepository")
  * @ORM\Table(name="feed")
  */
 class Feed
@@ -48,7 +48,7 @@ class Feed
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $activa_en_portada;
+    protected $active_at_frontpage;
 
 
     /**
@@ -200,25 +200,25 @@ class Feed
     }
 
     /**
-     * Set activa_en_portada
+     * Set active_at_frontpage
      *
-     * @param boolean $activaEnPortada
+     * @param boolean $ActiveAtFrontPage
      * @return Feed
      */
-    public function setActivaEnPortada($activaEnPortada)
+    public function setActiveAtFrontPage($ActiveAtFrontPage)
     {
-        $this->activa_en_portada = $activaEnPortada;
+        $this->active_at_frontpage = $ActiveAtFrontPage;
 
         return $this;
     }
 
     /**
-     * Get activa_en_portada
+     * Get active_at_frontpage
      *
      * @return boolean
      */
-    public function getActivaEnPortada()
+    public function getActiveAtFrontPage()
     {
-        return $this->activa_en_portada;
+        return $this->active_at_frontpage;
     }
 }

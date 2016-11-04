@@ -21,12 +21,30 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $feeds = $this->feedMe();
-        $this->insertFeedsIntoBBDD($feeds);
+        $feeds = $this->getLastFiveFeeds();
+        if (!$feeds) {
+            $feeds = $this->fillFeedsFromService();
+        }
 
         return $this->render('default/index.html.twig', array(
           'feeds' => $feeds
         ));
+    }
+
+    private function fillFeedsFromService()
+    {
+        $feeds = $this->feedService();
+        if(!$feeds)
+            throw $this->createNotFoundException('BALLA, POS SE NOS HA ROTO LA COSA');
+
+        return $feeds;
+    }
+
+    private function getLastFiveFeeds()
+    {
+       $em = $this->getDoctrine()->getManager();
+
+       return $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true)); //para mover
     }
 
     private function getFeedsRss()
@@ -40,19 +58,38 @@ class DefaultController extends Controller
         );
     }
 
-    private function feedMe()
+    private function feedService()
     {
-        $feedsRSS = $this->getFeedsRss();
-        $feeds = array(
-                new ElPais(simplexml_load_file($feedsRSS['ElPaisRSS'])),
-                //new LaRazon(simplexml_load_file($feedsRSS['LaRazonRSS'])),
-                new ElConfidencial(simplexml_load_file($feedsRSS['ElConfidencialRSS'])),
-                //new ElMundo(simplexml_load_file($feedsRSS['ElMundoRSS'])),
-                new ElPeriodico(simplexml_load_file($feedsRSS['ElPeriodicoRSS']))
-            );
+        $feeds = $this->feedMe();
+        $this->refreshFeedsFromBBDD();
+        $this->insertFeedsIntoBBDD($feeds);
 
         return $feeds;
     }
+
+    private function feedMe()
+    {
+        $feeds = $this->generateFeedsArray();
+        if (count($feeds)<4) {
+              throw $this->createNotFoundException('Los servidores de noticias no se encuentran disponibles ahora mismo, vayan con sus antorchas a por ellos.');
+          }
+
+        return $feeds;
+    }
+
+    private function generateFeedsArray()
+    {
+        $feedsRSS = $this->getFeedsRss();
+
+        return array(
+                new ElPais(simplexml_load_file($feedsRSS['ElPaisRSS'])),
+                new LaRazon(simplexml_load_file($feedsRSS['LaRazonRSS'])),
+                new ElConfidencial(simplexml_load_file($feedsRSS['ElConfidencialRSS'])),
+                new ElMundo(simplexml_load_file($feedsRSS['ElMundoRSS'])),
+                new ElPeriodico(simplexml_load_file($feedsRSS['ElPeriodicoRSS']))
+            );
+    }
+
     private function insertFeedsIntoBBDD($feeds)
     {
         $em = $this->getDoctrine()->getManager();
@@ -62,4 +99,17 @@ class DefaultController extends Controller
         }
         $em->flush($feed);
     }
+
+    private function refreshFeedsFromBBDD()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $feeds = $em->getRepository('AppBundle:Feed')->findAll();
+        foreach ($feeds as $feed)
+        {
+            $feed->setActivaEnPortada(false);
+            $em->persist($feed);
+        }
+        $em->flush();
+    }
+
 }

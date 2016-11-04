@@ -21,20 +21,20 @@ class __TwigTemplate_6a1b3457919719525b7d0e1e0240748e955eebc12e67b307b81b2fddcbb
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_a584f43243b27f98be5b0ba4a4339b6ab79b291d3dbd80e038e7b30f091f546b = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_a584f43243b27f98be5b0ba4a4339b6ab79b291d3dbd80e038e7b30f091f546b->enter($__internal_a584f43243b27f98be5b0ba4a4339b6ab79b291d3dbd80e038e7b30f091f546b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "feed/index.html.twig"));
+        $__internal_71ac6f715e5b4f86fca41c7414c24894651c2dfdbc287fd5d9ace83778e31f17 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_71ac6f715e5b4f86fca41c7414c24894651c2dfdbc287fd5d9ace83778e31f17->enter($__internal_71ac6f715e5b4f86fca41c7414c24894651c2dfdbc287fd5d9ace83778e31f17_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "feed/index.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_a584f43243b27f98be5b0ba4a4339b6ab79b291d3dbd80e038e7b30f091f546b->leave($__internal_a584f43243b27f98be5b0ba4a4339b6ab79b291d3dbd80e038e7b30f091f546b_prof);
+        $__internal_71ac6f715e5b4f86fca41c7414c24894651c2dfdbc287fd5d9ace83778e31f17->leave($__internal_71ac6f715e5b4f86fca41c7414c24894651c2dfdbc287fd5d9ace83778e31f17_prof);
 
     }
 
     // line 3
     public function block_body($context, array $blocks = array())
     {
-        $__internal_3301fb2436d0b6288ec89c53a27995f6a2db339f33ba9da0808b05411e9525f9 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_3301fb2436d0b6288ec89c53a27995f6a2db339f33ba9da0808b05411e9525f9->enter($__internal_3301fb2436d0b6288ec89c53a27995f6a2db339f33ba9da0808b05411e9525f9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "feed/index.html.twig"));
+        $__internal_7babef226d2675defed74278f6a4a16dca59dba14c7ddb869b9f6460f453a1f0 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_7babef226d2675defed74278f6a4a16dca59dba14c7ddb869b9f6460f453a1f0->enter($__internal_7babef226d2675defed74278f6a4a16dca59dba14c7ddb869b9f6460f453a1f0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "feed/index.html.twig"));
 
         // line 4
         echo "    <h1>Feeds list</h1>
@@ -49,7 +49,7 @@ class __TwigTemplate_6a1b3457919719525b7d0e1e0240748e955eebc12e67b307b81b2fddcbb
                 <th>Source</th>
                 <th>Publisher</th>
                 <th>Date</th>
-                <th>Activa_en_portada</th>
+                <th>Active_at_frontpage</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -93,7 +93,7 @@ class __TwigTemplate_6a1b3457919719525b7d0e1e0240748e955eebc12e67b307b81b2fddcbb
             echo "</td>
                 <td>";
             // line 30
-            if ($this->getAttribute($context["feed"], "activaenportada", array())) {
+            if ($this->getAttribute($context["feed"], "activeatfrontpage", array())) {
                 echo "Yes";
             } else {
                 echo "No";
@@ -135,7 +135,7 @@ class __TwigTemplate_6a1b3457919719525b7d0e1e0240748e955eebc12e67b307b81b2fddcbb
     </ul>
 ";
         
-        $__internal_3301fb2436d0b6288ec89c53a27995f6a2db339f33ba9da0808b05411e9525f9->leave($__internal_3301fb2436d0b6288ec89c53a27995f6a2db339f33ba9da0808b05411e9525f9_prof);
+        $__internal_7babef226d2675defed74278f6a4a16dca59dba14c7ddb869b9f6460f453a1f0->leave($__internal_7babef226d2675defed74278f6a4a16dca59dba14c7ddb869b9f6460f453a1f0_prof);
 
     }
 
@@ -179,7 +179,7 @@ class __TwigTemplate_6a1b3457919719525b7d0e1e0240748e955eebc12e67b307b81b2fddcbb
                 <th>Source</th>
                 <th>Publisher</th>
                 <th>Date</th>
-                <th>Activa_en_portada</th>
+                <th>Active_at_frontpage</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -193,7 +193,7 @@ class __TwigTemplate_6a1b3457919719525b7d0e1e0240748e955eebc12e67b307b81b2fddcbb
                 <td>{{ feed.source }}</td>
                 <td>{{ feed.publisher }}</td>
                 <td>{{ feed.date }}</td>
-                <td>{% if feed.activaenportada %}Yes{% else %}No{% endif %}</td>
+                <td>{% if feed.activeatfrontpage %}Yes{% else %}No{% endif %}</td>
                 <td>
                     <ul>
                         <li>

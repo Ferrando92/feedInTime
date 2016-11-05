@@ -67,7 +67,7 @@ Enjoy!
 [11]: https://symfony.com/doc/2.8/cookbook/logging/monolog.html
 [13]: https://symfony.com/doc/2.8/bundles/SensioGeneratorBundle/index.html
 # feedInTime
-
+mysql.server start
 composer require --dev doctrine/doctrine-fixtures-bundle
 php app/console doctrine:fixtures:load
 

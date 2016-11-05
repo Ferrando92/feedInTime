@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Powma\ServiceBundle\Entity\Source
  *
@@ -54,10 +55,13 @@ class Source
         return $this;
     }
 
+    public function getSourceFeedClassName()//dont work yet
+    {
+        return "AppBundle\Entity\$this->name";
+    }
+
     public function getFeedUrl()
     {
         return $this->feedUrl;
     }
-
-
 }

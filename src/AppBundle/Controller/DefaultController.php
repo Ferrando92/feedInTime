@@ -23,7 +23,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // Descomentar para generar los rss
-        //$this->feedService();
+        $this->feedService();
         if (!$feeds = $this->getLastFiveFeeds()) {
             $feeds = $this->fillFeedsFromService();
         }
@@ -49,7 +49,7 @@ class DefaultController extends Controller
        return $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true)); //para mover
     }
 
-    private function getSourcesRSS()
+    private function old_getSourcesRSS()// without objects
     {
         return $sourcesRSS = array(
             'ElPaisRSS' => 'http://ep00.epimg.net/rss/elpais/portada.xml',
@@ -60,7 +60,7 @@ class DefaultController extends Controller
         );
     }
 
-     private function refactor_getSourcesRSS()
+     private function getSourcesRSS()
     {
         $em = $this->getDoctrine()->getManager();
         return $em->getRepository('AppBundle:Source')->findAll();
@@ -85,7 +85,7 @@ class DefaultController extends Controller
         return $feeds;
     }
 
-    private function generateFeedsArray()
+    private function old_generateFeedsArray() //without objects, sources are arrays
     {
         $sourcesRSS = $this->getSourcesRSS();
 
@@ -98,16 +98,55 @@ class DefaultController extends Controller
             );
     }
 
-    private function refactor_generateFeedsArray()
+    private function next_refactor_generateFeedsArray()
     {
         $sourcesRSS = $this->getSourcesRSS();
         $generateFeeds = [];
         foreach ($sourcesRSS as $source)
         {
-            $class = $source->getName();
-           $generateFeeds = new $class(simplexml_load_file($source->getFeedUrl));
+           $className = $source->getSourceFeedClassName();
+           $generateFeeds[] = new $className(simplexml_load_file($source->getFeedUrl));
         }
         return $generateFeeds;
+    }
+
+    private function generateFeedsArray()
+    {
+        $sourcesRSS = $this->getSourcesRSS();
+        $generateFeeds = [];
+        foreach ($sourcesRSS as $source)
+        {
+            if($feed = $this->createTypeOfFeedBySource($source))
+                $generateFeeds[] = $feed;
+        }
+
+        return $generateFeeds;
+    }
+    private function createTypeOfFeedBySource($source) // no me termina
+    {
+        switch ($source->getName()) {
+            case 'ElPais':
+                return new ElPais(simplexml_load_file($source->getFeedUrl()));
+            break;
+
+            case 'LaRazon':
+                return new LaRazon(simplexml_load_file($source->getFeedUrl()));
+            break;
+
+            case 'ElConfidencial':
+                return new ElConfidencial(simplexml_load_file($source->getFeedUrl()));
+            break;
+
+            case 'ElPeriodico':
+                return new ElPeriodico(simplexml_load_file($source->getFeedUrl()));
+            break;
+
+            case 'ElMundo':
+                //return new ElMundo(simplexml_load_file($source->getFeedUrl()));
+            break;
+
+        }
+
     }
 
     private function insertFeedsIntoBBDD($feeds)

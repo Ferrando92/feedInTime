@@ -49,12 +49,6 @@ class DefaultController extends Controller
        return $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true)); //para mover
     }
 
-    private function getSourcesRSS()
-    {
-        $em = $this->getDoctrine()->getManager();
-        return $em->getRepository('AppBundle:Source')->findAll();
-    }
-
     private function feedService()
     {
         $feeds = $this->feedMe();
@@ -67,62 +61,30 @@ class DefaultController extends Controller
     private function feedMe()
     {
         $feeds = $this->generateFeedsArray();
-        if (count($feeds)<4) {
+        if (count($feeds)<0) {
               throw $this->createNotFoundException('Los servidores de noticias no se encuentran disponibles ahora mismo, vayan con sus antorchas a por ellos.');
           }
 
         return $feeds;
     }
 
-    private function next_refactor_generateFeedsArray()
-    {
-        $sourcesRSS = $this->getSourcesRSS();
-        $generateFeeds = [];
-        foreach ($sourcesRSS as $source)
-        {
-           $className = $source->getSourceFeedClassName();
-           $generateFeeds[] = new $className(simplexml_load_file($source->getFeedUrl));
-        }
-
-        return $generateFeeds;
-    }
-
     private function generateFeedsArray()
     {
         $sourcesRSS = $this->getSourcesRSS();
-        $generateFeeds = [];
+        $generatedFeeds = [];
         foreach ($sourcesRSS as $source)
         {
-            if($feed = $this->createTypeOfFeedBySource($source))
-                $generateFeeds[] = $feed;
+            if($feed = $source->generateOwnFeed())
+                $generatedFeeds[] = $feed;
         }
 
-        return $generateFeeds;
+        return $generatedFeeds;
     }
 
-    private function createTypeOfFeedBySource($source) // no me termina
+    private function getSourcesRSS()
     {
-        switch ($source->getName()) {
-            case 'ElPais':
-                return new ElPais(simplexml_load_file($source->getFeedUrl()));
-            break;
-
-            case 'LaRazon':
-                return new LaRazon(simplexml_load_file($source->getFeedUrl()));
-            break;
-
-            case 'ElConfidencial':
-                return new ElConfidencial(simplexml_load_file($source->getFeedUrl()));
-            break;
-
-            case 'ElPeriodico':
-                return new ElPeriodico(simplexml_load_file($source->getFeedUrl()));
-            break;
-
-            case 'ElMundo':
-                return new ElMundo(simplexml_load_file($source->getFeedUrl()));
-            break;
-        }
+        $em = $this->getDoctrine()->getManager();
+        return $em->getRepository('AppBundle:Source')->findAll();
     }
 
     private function insertFeedsIntoBBDD($feeds)
@@ -146,5 +108,19 @@ class DefaultController extends Controller
         }
         $em->flush();
     }
+
+    private function next_refactor_generateFeedsArray()
+    {
+        $sourcesRSS = $this->getSourcesRSS();
+        $generateFeeds = [];
+        foreach ($sourcesRSS as $source)
+        {
+           $className = $source->getSourceFeedClassName();
+           $generateFeeds[] = new $className(simplexml_load_file($source->getFeedUrl));
+        }
+
+        return $generateFeeds;
+    }
+
 
 }

@@ -64,4 +64,29 @@ class Source
     {
         return $this->feedUrl;
     }
+
+    public function generateOwnFeed()
+    {
+              switch ($this->getName()) {
+            case 'ElPais':
+                return new ElPais(simplexml_load_file($this->getFeedUrl()));
+            break;
+
+            case 'LaRazon':
+                return new LaRazon(simplexml_load_file($this->getFeedUrl()));
+            break;
+
+            case 'ElConfidencial':
+                return new ElConfidencial(simplexml_load_file($this->getFeedUrl()));
+            break;
+
+            case 'ElPeriodico':
+                return new ElPeriodico(simplexml_load_file($this->getFeedUrl()));
+            break;
+
+            case 'ElMundo':
+                return new ElMundo(simplexml_load_file($this->getFeedUrl()));
+            break;
+        }
+    }
 }

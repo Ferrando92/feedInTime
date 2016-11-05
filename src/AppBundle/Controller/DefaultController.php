@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Source;
+use AppBundle\Entity\Feeds;
 use AppBundle\Entity\Feed;
 use AppBundle\Entity\FeedXML;
 use AppBundle\Entity\ElPais;
@@ -23,62 +24,28 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // Descomentar para generar los rss
-        $this->feedService();
-        if (!$feeds = $this->getLastFiveFeeds()) {
-            $feeds = $this->fillFeedsFromService();
+        //$this->feedService();
+        $feeds = new Feeds();
+        $feeds->setList($this->getLastFiveFeeds());
+        if (!$feeds->getList()) {
+            $feeds->fillFeedsFromSources($this->getSourcesRSS());
         }
 
         return $this->render('default/index.html.twig', array(
-          'feeds' => $feeds
+          'feeds' => $feeds->getList()
         ));
-    }
-
-    private function fillFeedsFromService()
-    {
-        $feeds = $this->feedService();
-        if(!$feeds)
-            throw $this->createNotFoundException('BALLA, POS SE NOS HA ROTO LA COSA');
-
-        return $feeds;
-    }
-
-    private function getLastFiveFeeds()
-    {
-       $em = $this->getDoctrine()->getManager();
-
-       return $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true)); //para mover
     }
 
     private function feedService()
     {
-        $feeds = $this->feedMe();
-        $this->refreshFeedsFromBBDD();
-        $this->insertFeedsIntoBBDD($feeds);
-
-        return $feeds;
-    }
-
-    private function feedMe()
-    {
-        $feeds = $this->generateFeedsArray();
-        if (count($feeds)<0) {
-              throw $this->createNotFoundException('Los servidores de noticias no se encuentran disponibles ahora mismo, vayan con sus antorchas a por ellos.');
-          }
-
-        return $feeds;
-    }
-
-    private function generateFeedsArray()
-    {
-        $sourcesRSS = $this->getSourcesRSS();
-        $generatedFeeds = [];
-        foreach ($sourcesRSS as $source)
+        $sources = $this->getSourcesRSS();
+        $feeds = new Feeds();
+        $feeds->fillFeedsFromSources($sources);
+        if($feeds->getList())
         {
-            if($feed = $source->generateOwnFeed())
-                $generatedFeeds[] = $feed;
+            $this->refreshFeedsFromBBDD();
+            $this->insertFeedsIntoBBDD($feeds);
         }
-
-        return $generatedFeeds;
     }
 
     private function getSourcesRSS()
@@ -94,7 +61,7 @@ class DefaultController extends Controller
         {
             $em->persist($feed);
         }
-        $em->flush($feed);
+        $em->flush();
     }
 
     private function refreshFeedsFromBBDD()
@@ -108,6 +75,12 @@ class DefaultController extends Controller
         }
         $em->flush();
     }
+      private function getLastFiveFeeds()
+      {
+         $em = $this->getDoctrine()->getManager();
+
+         $this->feedList = $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true));
+      }
 
     private function next_refactor_generateFeedsArray()
     {

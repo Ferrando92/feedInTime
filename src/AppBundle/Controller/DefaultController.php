@@ -26,7 +26,7 @@ class DefaultController extends Controller
         // Descomentar para generar los rss
         //$this->feedService();
         $feeds = new Feeds();
-        $feeds->setList($this->getLastFiveFeeds());
+        $feeds->setList($this->getLastFiveFeedsFromBBDD());
         if (!$feeds->getList()) {
             $feeds->fillFeedsFromSources($this->getSourcesRSS());
         }
@@ -75,12 +75,12 @@ class DefaultController extends Controller
         }
         $em->flush();
     }
-      private function getLastFiveFeeds()
-      {
-         $em = $this->getDoctrine()->getManager();
+    private function getLastFiveFeedsFromBBDD()
+    {
+        $em = $this->getDoctrine()->getManager();
 
-         $this->feedList = $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true));
-      }
+        $this->feedList = $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true));
+    }
 
     private function next_refactor_generateFeedsArray()
     {

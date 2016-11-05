@@ -85,7 +85,7 @@ class Source
             break;
 
             case 'ElMundo':
-                return new ElMundo(simplexml_load_file($this->getFeedUrl()));
+                //return new ElMundo(simplexml_load_file($this->getFeedUrl()));
             break;
         }
     }

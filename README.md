@@ -68,6 +68,7 @@ Enjoy!
 [13]: https://symfony.com/doc/2.8/bundles/SensioGeneratorBundle/index.html
 # feedInTime
 
+composer require --dev doctrine/doctrine-fixtures-bundle
 
 CREATION OF DATABASE:
   CREATE TABLE Feed (

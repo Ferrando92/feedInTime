@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\Source;
 use AppBundle\Entity\Feed;
 use AppBundle\Entity\FeedXML;
 use AppBundle\Entity\ElPais;
@@ -21,8 +22,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $feeds = $this->getLastFiveFeeds();
-        if (!$feeds) {
+        if (!$feeds = $this->getLastFiveFeeds()) {
             $feeds = $this->fillFeedsFromService();
         }
 
@@ -47,15 +47,21 @@ class DefaultController extends Controller
        return $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true)); //para mover
     }
 
-    private function getFeedsRss()
+    private function getSourcesRSS()
     {
-        return $feedsRSS = array(
+        return $sourcesRSS = array(
             'ElPaisRSS' => 'http://ep00.epimg.net/rss/elpais/portada.xml',
             'ElConfidencialRSS' => 'http://rss.elconfidencial.com/espana/',
             'ElMundoRSS' => 'http://estaticos.elmundo.es/elmundo/rss/portada.xml',
             'LaRazonRSS' => 'http://www.larazon.es/rss/portada.xml',
             'ElPeriodicoRSS' => 'http://www.elperiodico.com/es/rss/rss_portada.xml'
         );
+    }
+
+     private function refactorgetSourcesRSS()
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $em->getRepository('AppBundle:Source')->findAll();
     }
 
     private function feedService()
@@ -79,15 +85,27 @@ class DefaultController extends Controller
 
     private function generateFeedsArray()
     {
-        $feedsRSS = $this->getFeedsRss();
+        $sourcesRSS = $this->getSourcesRSS();
 
         return array(
-                new ElPais(simplexml_load_file($feedsRSS['ElPaisRSS'])),
-                new LaRazon(simplexml_load_file($feedsRSS['LaRazonRSS'])),
-                new ElConfidencial(simplexml_load_file($feedsRSS['ElConfidencialRSS'])),
-                new ElMundo(simplexml_load_file($feedsRSS['ElMundoRSS'])),
-                new ElPeriodico(simplexml_load_file($feedsRSS['ElPeriodicoRSS']))
+                new ElPais(simplexml_load_file($sourcesRSS['ElPaisRSS'])),
+                new LaRazon(simplexml_load_file($sourcesRSS['LaRazonRSS'])),
+                new ElConfidencial(simplexml_load_file($sourcesRSS['ElConfidencialRSS'])),
+                new ElMundo(simplexml_load_file($sourcesRSS['ElMundoRSS'])),
+                new ElPeriodico(simplexml_load_file($sourcesRSS['ElPeriodicoRSS']))
             );
+    }
+
+        private function refactorgenerateFeedsArray()
+    {
+        $sourcesRSS = $this->getSourcesRSS();
+        $generateFeeds = [];
+        foreach ($sourcesRSS as $source)
+        {
+            $class = "Class".$source->getName();
+           $generateFeeds = new $class(simplexml_load_file($source->getFeedUrl));
+        }
+        return $generateFeeds;
     }
 
     private function insertFeedsIntoBBDD($feeds)

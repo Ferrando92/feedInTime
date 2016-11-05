@@ -48,3 +48,6 @@
 [2016-11-04 18:28:48] request.INFO: Matched route "homepage". {"route_parameters":{"_controller":"AppBundle\\Controller\\DefaultController::indexAction","_route":"homepage"},"request_uri":"http://localhost/"} []
 [2016-11-04 18:28:48] security.INFO: Populated the TokenStorage with an anonymous Token. [] []
 [2016-11-04 18:28:48] doctrine.DEBUG: SELECT t0.id AS id1, t0.title AS title2, t0.body AS body3, t0.image AS image4, t0.source AS source5, t0.publisher AS publisher6, t0.date AS date7, t0.activa_en_portada AS activa_en_portada8 FROM feed t0 WHERE t0.activa_en_portada = ? [true] []
+[2016-11-05 01:48:44] request.INFO: Matched route "homepage". {"route_parameters":{"_controller":"AppBundle\\Controller\\DefaultController::indexAction","_route":"homepage"},"request_uri":"http://localhost/"} []
+[2016-11-05 01:48:44] security.INFO: Populated the TokenStorage with an anonymous Token. [] []
+[2016-11-05 01:48:44] doctrine.DEBUG: SELECT t0.id AS id1, t0.title AS title2, t0.body AS body3, t0.image AS image4, t0.source AS source5, t0.publisher AS publisher6, t0.date AS date7, t0.active_at_frontpage AS active_at_frontpage8 FROM feed t0 WHERE t0.active_at_frontpage = ? [true] []

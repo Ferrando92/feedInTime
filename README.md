@@ -69,6 +69,7 @@ Enjoy!
 # feedInTime
 
 composer require --dev doctrine/doctrine-fixtures-bundle
+php app/console doctrine:fixtures:load
 
 CREATION OF DATABASE:
   CREATE TABLE Feed (
@@ -81,3 +82,5 @@ CREATION OF DATABASE:
     date VARCHAR(250),
     activa_en_portada BOOLEAN
   );
+
+  CREATE TABLE sources ( id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(250) NOT NULL, feed_url VARCHAR(1000) NOT NULL);

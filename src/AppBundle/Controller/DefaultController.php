@@ -22,6 +22,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $this->feedService();
         if (!$feeds = $this->getLastFiveFeeds()) {
             $feeds = $this->fillFeedsFromService();
         }
@@ -58,7 +59,7 @@ class DefaultController extends Controller
         );
     }
 
-     private function refactorgetSourcesRSS()
+     private function refactor_getSourcesRSS()
     {
         $em = $this->getDoctrine()->getManager();
         return $em->getRepository('AppBundle:Source')->findAll();
@@ -91,18 +92,18 @@ class DefaultController extends Controller
                 new ElPais(simplexml_load_file($sourcesRSS['ElPaisRSS'])),
                 new LaRazon(simplexml_load_file($sourcesRSS['LaRazonRSS'])),
                 new ElConfidencial(simplexml_load_file($sourcesRSS['ElConfidencialRSS'])),
-                new ElMundo(simplexml_load_file($sourcesRSS['ElMundoRSS'])),
+                //new ElMundo(simplexml_load_file($sourcesRSS['ElMundoRSS'])),
                 new ElPeriodico(simplexml_load_file($sourcesRSS['ElPeriodicoRSS']))
             );
     }
 
-        private function refactorgenerateFeedsArray()
+    private function refactor_generateFeedsArray()
     {
         $sourcesRSS = $this->getSourcesRSS();
         $generateFeeds = [];
         foreach ($sourcesRSS as $source)
         {
-            $class = "Class".$source->getName();
+            $class = $source->getName();
            $generateFeeds = new $class(simplexml_load_file($source->getFeedUrl));
         }
         return $generateFeeds;

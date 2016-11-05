@@ -49,18 +49,7 @@ class DefaultController extends Controller
        return $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true)); //para mover
     }
 
-    private function old_getSourcesRSS()// without objects
-    {
-        return $sourcesRSS = array(
-            'ElPaisRSS' => 'http://ep00.epimg.net/rss/elpais/portada.xml',
-            'ElConfidencialRSS' => 'http://rss.elconfidencial.com/espana/',
-            'ElMundoRSS' => 'http://estaticos.elmundo.es/elmundo/rss/portada.xml',
-            'LaRazonRSS' => 'http://www.larazon.es/rss/portada.xml',
-            'ElPeriodicoRSS' => 'http://www.elperiodico.com/es/rss/rss_portada.xml'
-        );
-    }
-
-     private function getSourcesRSS()
+    private function getSourcesRSS()
     {
         $em = $this->getDoctrine()->getManager();
         return $em->getRepository('AppBundle:Source')->findAll();
@@ -85,19 +74,6 @@ class DefaultController extends Controller
         return $feeds;
     }
 
-    private function old_generateFeedsArray() //without objects, sources are arrays
-    {
-        $sourcesRSS = $this->getSourcesRSS();
-
-        return array(
-                new ElPais(simplexml_load_file($sourcesRSS['ElPaisRSS'])),
-                new LaRazon(simplexml_load_file($sourcesRSS['LaRazonRSS'])),
-                new ElConfidencial(simplexml_load_file($sourcesRSS['ElConfidencialRSS'])),
-                new ElMundo(simplexml_load_file($sourcesRSS['ElMundoRSS'])),
-                new ElPeriodico(simplexml_load_file($sourcesRSS['ElPeriodicoRSS']))
-            );
-    }
-
     private function next_refactor_generateFeedsArray()
     {
         $sourcesRSS = $this->getSourcesRSS();
@@ -107,6 +83,7 @@ class DefaultController extends Controller
            $className = $source->getSourceFeedClassName();
            $generateFeeds[] = new $className(simplexml_load_file($source->getFeedUrl));
         }
+
         return $generateFeeds;
     }
 
@@ -122,6 +99,7 @@ class DefaultController extends Controller
 
         return $generateFeeds;
     }
+
     private function createTypeOfFeedBySource($source) // no me termina
     {
         switch ($source->getName()) {
@@ -142,11 +120,9 @@ class DefaultController extends Controller
             break;
 
             case 'ElMundo':
-                //return new ElMundo(simplexml_load_file($source->getFeedUrl()));
+                return new ElMundo(simplexml_load_file($source->getFeedUrl()));
             break;
-
         }
-
     }
 
     private function insertFeedsIntoBBDD($feeds)

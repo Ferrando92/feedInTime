@@ -40,7 +40,7 @@ class __TwigTemplate_aac1c5beec306ddf1fd6684e4e8dda75bd9e69f49c5f5539ca161dd28ff
                 <th>Source</th>
                 <th>Publisher</th>
                 <th>Date</th>
-                <th>Activa_en_portada</th>
+                <th>Active_at_frontpage</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -84,7 +84,7 @@ class __TwigTemplate_aac1c5beec306ddf1fd6684e4e8dda75bd9e69f49c5f5539ca161dd28ff
             echo "</td>
                 <td>";
             // line 30
-            if ($this->getAttribute($context["feed"], "activaenportada", array())) {
+            if ($this->getAttribute($context["feed"], "activeatfrontpage", array())) {
                 echo "Yes";
             } else {
                 echo "No";

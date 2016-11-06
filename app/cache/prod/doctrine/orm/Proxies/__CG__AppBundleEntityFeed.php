@@ -58,20 +58,20 @@ class Feed extends \AppBundle\Entity\Feed implements \Doctrine\ORM\Proxy\Proxy
 
 
     /**
-     * 
+     *
      * @return array
      */
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'title', 'body', 'image', 'source', 'publisher', 'date', 'activa_en_portada');
+            return array('__isInitialized__', 'id', 'title', 'body', 'image', 'source', 'publisher', 'date', 'active_at_frontpage');
         }
 
-        return array('__isInitialized__', 'id', 'title', 'body', 'image', 'source', 'publisher', 'date', 'activa_en_portada');
+        return array('__isInitialized__', 'id', 'title', 'body', 'image', 'source', 'publisher', 'date', 'active_at_frontpage');
     }
 
     /**
-     * 
+     *
      */
     public function __wakeup()
     {
@@ -93,7 +93,7 @@ class Feed extends \AppBundle\Entity\Feed implements \Doctrine\ORM\Proxy\Proxy
     }
 
     /**
-     * 
+     *
      */
     public function __clone()
     {
@@ -172,7 +172,7 @@ class Feed extends \AppBundle\Entity\Feed implements \Doctrine\ORM\Proxy\Proxy
         return self::$lazyPropertiesDefaults;
     }
 
-    
+
     /**
      * {@inheritDoc}
      */

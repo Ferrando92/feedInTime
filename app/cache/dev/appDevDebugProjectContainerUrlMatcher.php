@@ -114,6 +114,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
         }
 
+        // Feeder
+        if ($pathinfo === '/runFeedService') {
+            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::runnFeedServiceAction',  '_route' => 'Feeder',);
+        }
+
         if (0 === strpos($pathinfo, '/feed')) {
             // feed_index
             if (rtrim($pathinfo, '/') === '/feed') {

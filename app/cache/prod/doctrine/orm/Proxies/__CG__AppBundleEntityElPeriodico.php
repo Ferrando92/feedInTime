@@ -58,20 +58,20 @@ class ElPeriodico extends \AppBundle\Entity\ElPeriodico implements \Doctrine\ORM
 
 
     /**
-     * 
+     *
      * @return array
      */
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'title', 'body', 'image', 'source', 'publisher', 'date', 'activa_en_portada');
+            return array('__isInitialized__', 'id', 'title', 'body', 'image', 'source', 'publisher', 'date', 'active_at_frontpage');
         }
 
-        return array('__isInitialized__', 'id', 'title', 'body', 'image', 'source', 'publisher', 'date', 'activa_en_portada');
+        return array('__isInitialized__', 'id', 'title', 'body', 'image', 'source', 'publisher', 'date', 'active_at_frontpage');
     }
 
     /**
-     * 
+     *
      */
     public function __wakeup()
     {
@@ -93,7 +93,7 @@ class ElPeriodico extends \AppBundle\Entity\ElPeriodico implements \Doctrine\ORM
     }
 
     /**
-     * 
+     *
      */
     public function __clone()
     {
@@ -172,7 +172,7 @@ class ElPeriodico extends \AppBundle\Entity\ElPeriodico implements \Doctrine\ORM
         return self::$lazyPropertiesDefaults;
     }
 
-    
+
     /**
      * {@inheritDoc}
      */

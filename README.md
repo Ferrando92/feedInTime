@@ -11,7 +11,7 @@ Instalacion:
 * Iniciamos mysql 
  * mysql.server start
 * Creamos la Base de datos
- * php bin/console doctrine:database:create
+ * php app/console doctrine:database:create
 * Creamos las tablas a mano (Por tema la abstracion por herencia doctrine saca un fallo al intentar generarlas).
  * CREATE TABLE Feed (
      id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

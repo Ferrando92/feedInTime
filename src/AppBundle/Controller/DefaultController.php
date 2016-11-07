@@ -79,7 +79,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $this->feedList = $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true));
+        return $this->feedList = $em->getRepository('AppBundle:Feed')->findBy(array('active_at_frontpage' => true));
     }
 
     private function next_refactor_generateFeedsArray()

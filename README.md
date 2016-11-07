@@ -29,6 +29,7 @@ Instalacion:
  * php app/console doctrine:fixtures:load
 * Arrancamos el bicho
  * php app/console server:start
+* En principio si con esto vas a la ruta principal ya se generaran los feeds ya que si no encuentra ningun feed en la base de datos activado los genera, en caso de que no fuese asi, la ruta: http://localhost:8000/runFeedService generara los feeds.
 
 
 

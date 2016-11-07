@@ -1,11 +1,36 @@
 Symfony Standard Edition
 ========================
+Actualizaciones:
+--------------
+- Un commit se quedo por pushear en la ultima actualizacion.
+- La instalacion lo la tengo testeada, la tengo hecha al vuelo (Esta tarde la reviso).
+- El RSS de el mundo a veces da problemas
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+Instalacion:
+--------------
+* Iniciamos mysql 
+ * mysql.server start
+* Creamos la Base de datos
+ * php bin/console doctrine:database:create
+* Creamos las tablas a mano (Por tema la abstracion por herencia doctrine saca un fallo al intentar generarlas).
+ * CREATE TABLE Feed (
+     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+     title VARCHAR(250) NOT NULL,
+     body VARCHAR(250) NOT NULL,
+     image VARCHAR(250),
+     source VARCHAR(250),
+     publisher VARCHAR(250),
+     date VARCHAR(250),
+     active_at_frontpage BOOLEAN
+   );
+ * CREATE TABLE sources ( id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(250) NOT NULL, feed_url VARCHAR(1000) NOT NULL);
+* Rellenamos la tabla SOURCE con los datos de los proveedores de RSS (Los 5), necesitamos habilitar fixtures.
+ * composer require --dev doctrine/doctrine-fixtures-bundle
+ * php app/console doctrine:fixtures:load
+* Arrancamos el bicho
+ * php app/console server:start
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+
 
 What's inside?
 --------------

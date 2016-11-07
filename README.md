@@ -3,7 +3,7 @@ Symfony Standard Edition
 Actualizaciones:
 --------------
 - Un commit se quedo por pushear en la ultima actualizacion.
-- La instalacion lo la tengo testeada, la tengo hecha al vuelo (Esta tarde la reviso).
+- La instalacion no la tengo testeada, la tengo hecha al vuelo (Esta tarde la reviso).
 - El RSS de el mundo a veces da problemas
 
 Instalacion:
